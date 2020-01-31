@@ -1,13 +1,18 @@
 {
-    "name": "backend",
-    "version": "1.0.0",
-    "description": "backend",
-    "author": "Alexander Riss, Benjamin Brachmann, Tobias Oberbeck",
-    "main": "server.js",
-    "scripts": {
-      "start": "node server.js"
-    },
-    "dependencies": {
-      "express": "^4.17.1"
-    }
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend",
+  "author": "Alexander Riss, Benjamin Brachmann, Tobias Oberbeck",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^3.4.0",
+    "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "chalk": "^3.0.0"
   }
+}
