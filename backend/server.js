@@ -1,15 +1,16 @@
-const express = require('express')
+const WebSocket = require('ws')
+const Client = require('./src/controllers/Client')
 
-// Constants
-const PORT = 80;
-const HOST = '0.0.0.0'
+const PORT = '8080'
 
-// App
-const app = express()
-app.get('/', (req, res) => {
-  res.set('Content-Type', 'text/html')
-  res.send(new Buffer('<h2>WEB SERVER</h2>'))
-});
+const clients = []
+const server = new WebSocket.Server({ port: PORT })
 
-app.listen(PORT, HOST)
-console.log(`Running on http://${HOST}:${PORT}`)
+const Game = require('./src/controllers/Game')
+const game = new Game()
+
+server.on('connection', connection = (socket) => {
+	console.log('New client connected...')
+	const client = new Client(socket, game)
+	clients.push(client)
+})
