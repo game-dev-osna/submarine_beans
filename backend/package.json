@@ -1,8 +1,8 @@
 {
-    "name": "docker_web_server",
+    "name": "backend",
     "version": "1.0.0",
-    "description": "Node.js on Docker",
-    "author": "Benjamin Brachmann",
+    "description": "backend",
+    "author": "Alexander Riss, Benjamin Brachmann, Tobias Oberbeck",
     "main": "server.js",
     "scripts": {
       "start": "node server.js"
