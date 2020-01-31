@@ -1,13 +1,12 @@
 {
-    "name": "frontend",
-    "version": "1.0.0",
-    "description": "frontend",
-    "author": "Alexander Riss, Benjamin Brachmann, Tobias Oberbeck",
-    "main": "server.js",
-    "scripts": {
-      "start": ""
-    },
-    "dependencies": {
-      "express": "^4.17.1"
-    }
-  }
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "frontend",
+  "author": "Alexander Riss, Benjamin Brachmann, Tobias Oberbeck",
+  "main": "server.js",
+  "scripts": {
+    "start": "parcel index.html assets/**/*"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
