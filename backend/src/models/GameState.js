@@ -52,10 +52,10 @@ class GameState {
 			const { up, down, left, right } = player.getInputs()
 			
 			if(up) {
-				player.move(GAME_SETTINGS.PLAYER_SPEED)
+				player.accelerate(GAME_SETTINGS.ACCELARATION_FACTOR * GAME_SETTINGS.LOOP_INTERVAL_TIME)
 			}
 			else if(down) {
-				player.move(-GAME_SETTINGS.PLAYER_SPEED)
+				player.accelerate(GAME_SETTINGS.ACCELARATION_FACTOR * GAME_SETTINGS.LOOP_INTERVAL_TIME / -2.0)
 			}	
 			
 			if(left) {
@@ -64,6 +64,8 @@ class GameState {
 			else if(right) {
 				player.rotate(GAME_SETTINGS.PLAYER_ROTATION_SPEED)
 			}	
+
+			player.update(GAME_SETTINGS.LOOP_INTERVAL_TIME)
 		})
 	}
 }

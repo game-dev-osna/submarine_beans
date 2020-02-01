@@ -1,6 +1,6 @@
-const GameObject = require('./GameObject')
+const DynamicObject = require('./DynamicObject')
 
-class Player extends GameObject {
+class Player extends DynamicObject {
 
 	constructor(name) {
 		super(name)

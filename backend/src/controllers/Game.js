@@ -1,11 +1,6 @@
 const chalk = require('chalk')
 const GameState = require('../models/GameState')
-
-const SETTINGS = {
-	MAX_AMOUNT_OF_CLIENTS: 4,
-	MIN_AMOUNT_OF_CLIENTS: 1,
-	LOOP_INTERVAL_TIME: 1000 / 120
-}
+const GAME_SETTINGS = require('../settings')
 
 class Game {
 	constructor() {
@@ -16,18 +11,18 @@ class Game {
 	}
 
 	join(client) {
-		if(this._clients.length > SETTINGS.MAX_AMOUNT_OF_CLIENTS)
+		if(this._clients.length > GAME_SETTINGS.MAX_AMOUNT_OF_CLIENTS)
 			return
 
 		if(this._clients.includes(client))
 			return
-			
+
 		console.log(`Client ${ chalk.blue(client.getUID()) } joined game`)
 		this._clients.push(client)
 	}
 
 	start(client) {
-		if(this._clients.length < SETTINGS.MIN_AMOUNT_OF_CLIENTS)
+		if(this._clients.length < GAME_SETTINGS.MIN_AMOUNT_OF_CLIENTS)
 			return
 		
 		if(this._gameState)
@@ -36,7 +31,7 @@ class Game {
 		this._gameState = new GameState()
 
 		console.log(`Client ${ chalk.blue(client.getUID()) } started the game`)
-		this._loopIntervalId = setInterval(this._loop.bind(this), SETTINGS.LOOP_INTERVAL_TIME)
+		this._loopIntervalId = setInterval(this._loop.bind(this), GAME_SETTINGS.LOOP_INTERVAL_TIME)
 	}
 
 	stop(client) {

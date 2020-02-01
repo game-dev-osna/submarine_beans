@@ -4,7 +4,7 @@ class GameObject {
 	constructor(name) {
 		this._name = name || 'DEFAULT'
 		this._position = { x: 50, y: 50 }
-		this._size = { width: 0, height: 0 }
+		this._size = { width: 0, height: 0 }	
 		this._angle = 0 // 0π to 2π
 	}
 
@@ -53,6 +53,10 @@ class GameObject {
 	translate({ translateX, translateY }) {
 		this._position.y += translateY || 0
 		this._position.x += (translateX / GAME_SETTINGS.SCREEN_RATIO) || 0
+	}
+
+	update(deltaTime) {
+		
 	}
 
 	rotate( radians ) {
