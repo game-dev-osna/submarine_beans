@@ -204,6 +204,15 @@ const sharedSubmarineConfig = {
 }
 
 let assets = {
+	shark_torpedo: {
+		url: 'assets/shark_torpedo.png',
+		nativeSize: {
+			x: 100,
+			y: 35
+		},
+		scale: 0.4,
+		image: null
+	},
 	submarine_green: {
 		url: 'assets/submarine_green.png',
 		...sharedSubmarineConfig
@@ -290,6 +299,6 @@ const drawPlayers = () => {
 
 const drawMissiles = () => {
 	state.missiles.forEach(missile => {
-		drawAsset(assets['submarine_green'], missile)
+		drawAsset(assets.shark_torpedo, missile)
 	})
 }
