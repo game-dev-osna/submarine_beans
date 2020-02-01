@@ -22,7 +22,6 @@ class Player extends GameObject {
 			...this._inputs, 
 			...inputs
 		}
-		console.log(this._inputs)
 	}
 }	
 

@@ -1,5 +1,6 @@
 const uuidv4 = require('uuid/v4')
 const Player = require('../models/game_objects/Player')
+const chalk = require('chalk')
 
 class Client {
 
@@ -26,7 +27,11 @@ class Client {
 
 	_registerEvents() {
 		this._socket.on('message', (message) => {
-			this._processMessage(JSON.parse(message))
+			try {
+				this._processMessage(JSON.parse(message))	
+			} catch (error) {
+				console.error(chalk.red('Invalid WebSocket message.'))
+			}
 		})
 	}
 

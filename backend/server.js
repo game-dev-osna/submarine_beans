@@ -12,4 +12,9 @@ const game = new Game()
 server.on('connection', (socket) => {
 	const client = new Client(socket, game)
 	console.log(`New client with id ${ chalk.bgGreen.black(client.getUID()) } connected`)
+
+	socket.on('close', (socket) => {
+		game.kickClient(client.getUID())
+		console.log(`Client with id ${ chalk.bgYellow.black(client.getUID()) } disconnected`)
+	})
 })

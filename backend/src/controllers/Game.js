@@ -3,8 +3,8 @@ const GameState = require('../models/GameState')
 
 const SETTINGS = {
 	MAX_AMOUNT_OF_CLIENTS: 4,
-	MIN_AMOUNT_OF_CLIENTS: 0,
-	LOOP_INTERVAL_TIME: 1000 / 60
+	MIN_AMOUNT_OF_CLIENTS: 1,
+	LOOP_INTERVAL_TIME: 1000 / 120
 }
 
 class Game {
@@ -26,6 +26,9 @@ class Game {
 	start(client) {
 		if(this._clients.length < SETTINGS.MIN_AMOUNT_OF_CLIENTS)
 			return
+		
+		if(this._gameState)
+			return 
 
 		this._gameState = new GameState()
 
@@ -39,6 +42,10 @@ class Game {
 		this._gameState = null
 	}
 
+	kickClient(uID) {
+		this._clients = this._clients.filter( client => client.getUID() !== uID )
+	}
+
 	_broadcoast(type, payload) {
 		this._clients.forEach( (client) => {
 			client.send({
@@ -49,10 +56,17 @@ class Game {
 	}
 
 	_loop() {
-		if(!this._gameState && this._gameState.getIsCalculating()) 
+		if(!this._gameState) 
 			return 
-		
-		this._gameState.calculate(this._clients.map(client => client.player))
+
+		if(this._gameState.getIsCalculating()) 
+			return 
+
+		this._gameState.calculate(this._clients.map(client => client.getPlayer())).then((state) => {
+			this._broadcoast('state', state)
+		}).catch((error) => {
+			console.log(chalk.red('Error while calculating state'), error)
+		})
 	}
 }
 

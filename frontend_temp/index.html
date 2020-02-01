@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<style>
+
+			body {
+				margin: 0;
+				background-color: black;
+				overflow: hidden;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.button-group {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.text-box {
+				background-color: rgba(0, 0, 0, 0.4);
+				color: white;
+				padding: 5px;
+				border-radius: 3px;
+				max-height: 90vh;
+			}
+
+			.art {
+				border: 1px solid black;
+				background-color: white;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		<div class="button-group">
+			<button>Join</button>
+			<button>Start</button>
+			<button>Stop</button>
+			<pre class="text-box"></pre>
+		</div>
+
+		<canvas class="art">
+		</canvas>
+
+		<script src="app.js"></script>
+	</body>
+</html>
