@@ -1,49 +1,58 @@
 const chalk = require('chalk')
+const GameState = require('../models/GameState')
 
 const SETTINGS = {
-	MAX_AMOUNT_OF_USERS: 4,
-	MIN_AMOUNT_OF_USERS: 0,
+	MAX_AMOUNT_OF_CLIENTS: 4,
+	MIN_AMOUNT_OF_CLIENTS: 0,
 	LOOP_INTERVAL_TIME: 1000 / 60
 }
 
 class Game {
 	constructor() {
-		this._players = []
+		this._clients = []
 		this._isCalculatingState = false
 		this._loopIntervalId = ''	
+		this._gameState = null
 	}
 
-	join(user) {
-		if(this._players.length > SETTINGS.MAX_AMOUNT_OF_USERS)
+	join(client) {
+		if(this._clients.length > SETTINGS.MAX_AMOUNT_OF_CLIENTS)
 			return
 
-		console.log('Player joined game')
-		this._players.push(user)
+		console.log(`Client ${ chalk.blue(client.getUID()) } joined game`)
+		this._clients.push(client)
 	}
 
 	start(client) {
-		if(this._players.length < SETTINGS.MIN_AMOUNT_OF_USERS)
+		if(this._clients.length < SETTINGS.MIN_AMOUNT_OF_CLIENTS)
 			return
 
-		console.log(`Client ${chalk.blue(client.uID)} started the game`)
+		this._gameState = new GameState()
+
+		console.log(`Client ${ chalk.blue(client.getUID()) } started the game`)
 		this._loopIntervalId = setInterval(this._loop.bind(this), SETTINGS.LOOP_INTERVAL_TIME)
 	}
 
 	stop(client) {
-		console.log(`Client ${chalk.blue(client.uID)} stopped the game`)
+		console.log(`Client ${ chalk.blue(client.getUID()) } stopped the game`)
 		clearInterval(this._loopIntervalId)
+		this._gameState = null
+	}
+
+	_broadcoast(type, payload) {
+		this._clients.forEach( (client) => {
+			client.send({
+				type: type,
+				payload: payload
+			})
+		})
 	}
 
 	_loop() {
-		if(!this._isCalculatingState) {
-			this._calculateState()
-		}
-	}
-
-	_calculateState() {
-		this._isCalculatingState = true
-		console.log('Game is running ...')
-		this._isCalculatingState = false
+		if(!this._gameState && this._gameState.getIsCalculating()) 
+			return 
+		
+		this._gameState.calculate(this._clients.map(client => client.player))
 	}
 }
 
