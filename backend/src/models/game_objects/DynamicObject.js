@@ -14,6 +14,7 @@ class DynamicObject extends GameObject{
 
 	update(deltaTime){
 
+		const EPSILON = 0.00001
 		const FORCE_FACTOR = 1.0
 		const MILLISECONDS_PER_SECOND = 1000
 		const DECELERATION = 0.02;
@@ -29,6 +30,13 @@ class DynamicObject extends GameObject{
 
 		this._speed.x = this._speed.x * (1.0 - DECELERATION) + this._acceleration.x
 		this._speed.y = this._speed.y * (1.0 - DECELERATION) + this._acceleration.y
+
+		
+		if(Math.abs(this._speed.x) + Math.abs(this._speed.y) < EPSILON) {
+			this._speed.x = 0.0
+			this._speed.y = 0.0
+		}
+
 
 		// this._acceleration.x *= (1.0 - FORCE_FALL_PER_SECOND) * (deltaTime / MILLISECONDS_PER_SECOND)
 		// this._acceleration.y *= (1.0 - FORCE_FALL_PER_SECOND) * (deltaTime / MILLISECONDS_PER_SECOND)
