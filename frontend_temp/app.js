@@ -187,8 +187,8 @@ const submarineMapping = {
 
 const sharedSubmarineConfig = {
 	nativeSize: {
-		x: 128,
-		y: 128
+		x: 124,
+		y: 66
 	},
 	scale: 0.5,
 	image: null
