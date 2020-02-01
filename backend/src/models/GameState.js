@@ -82,7 +82,7 @@ class GameState {
 			const currentDate = new Date()
 			// @ts-ignore
 			if(s_key && (currentDate - player.getLastInteractionDate()) > GAME_SETTINGS.INTERACTION_PAUSE) {
-				// SPAWN AN MISSILE
+				// SPAWN A MISSILE
 				const missile = new MissileObject(`MISSILE-${ uuidv4() }`)
 				missile.setAngle(player.getAngle())
 				missile.setPosition(player.getPosition())
@@ -91,12 +91,12 @@ class GameState {
 				player.setLastInteractionDate(currentDate)
 			}
 
-			player.update(GAME_SETTINGS.LOOP_INTERVAL_TIME)
+			player.update(GAME_SETTINGS.LOOP_INTERVAL_TIME, this._gameObjects.missiles.concat(players) )
 		})
 
 		// MISSILES
 		this._gameObjects.missiles.forEach(missile => {
-			missile.update(GAME_SETTINGS.LOOP_INTERVAL_TIME)
+			missile.update(GAME_SETTINGS.LOOP_INTERVAL_TIME, this._gameObjects.missiles.concat(players))
 		})
 	}
 }

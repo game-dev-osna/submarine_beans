@@ -7,6 +7,7 @@ class Player extends DynamicObject {
 
 		this._lastInteractionDate = new Date()
 		this._color = ''
+		this.setSize({ width: 3.0, height: 1.5 })
 		this._inputs = {
 			up: false,
 			down: false,

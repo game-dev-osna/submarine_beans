@@ -1,5 +1,6 @@
 
 const { any } = require('ramda')
+const SAT = require('sat')
 const GameObject = require('./GameObject')
 const GAME_SETTINGS = require('../../settings')
 
@@ -15,7 +16,7 @@ class DynamicObject extends GameObject {
 		this._colliding = false;
 	}
 
-	update(deltaTime){
+	update(deltaTime, gameObjects){
 
 		const EPSILON = 0.00001
 		const FORCE_FACTOR = 1.0
@@ -43,10 +44,79 @@ class DynamicObject extends GameObject {
 		this._acceleration = { x: 0, y: 0 }
 
 		this.processBorderCollision();
+		this.processCollision(gameObjects);
 	}
 
-	processBorderCollision()
+	getSpeed()
 	{
+		return this._speed;
+	}
+
+	getRectPointsOfCollider()
+	{
+		const diffX = Math.cos(this._angle) * this._size.width
+		const diffY = Math.sin(this._angle) * this._size.height
+
+		const rectPoints = [
+			{ x: this._position.x - diffX, y: this._position.y - diffY },
+			{ x: this._position.x + diffX, y: this._position.y - diffY },
+			{ x: this._position.x - diffX, y: this._position.y + diffY },
+			{ x: this._position.x + diffX, y: this._position.y + diffY }
+		]
+
+		return rectPoints;
+	}
+
+	processCollision(gameObjects){
+
+		const diffX = Math.cos(this._angle) * this._size.width
+		const diffY = Math.sin(this._angle) * this._size.height
+
+		const rectPoints = [
+			{ x: this._position.x - diffX, y: this._position.y - diffY },
+			{ x: this._position.x + diffX, y: this._position.y - diffY },
+			{ x: this._position.x - diffX, y: this._position.y + diffY },
+			{ x: this._position.x + diffX, y: this._position.y + diffY }
+		]
+
+		const polygonPoints = rectPoints.map(rectPoint => new SAT.Vector(rectPoint.x, rectPoint.y))
+		const polygon = new SAT.Polygon(new SAT.Vector(), polygonPoints)
+
+		gameObjects.forEach((gameObject) => 
+		{
+			const otherRectPoints= gameObject.getRectPointsOfCollider(); 
+			const otherPolygonPoints = otherRectPoints.map(rectPoint => new SAT.Vector(rectPoint.x, rectPoint.y))
+			const otherPolygon = new SAT.Polygon(new SAT.Vector(), otherPolygonPoints)
+
+			if(gameObject instanceof DynamicObject)
+			{
+				if(SAT.testPolygonPolygon(polygon, otherPolygon) && this != gameObject)
+				{
+					// console.log("my", polygon, "other", otherPolygon)
+
+
+					const otherPosition = gameObject.getPosition()
+					const otherSpeed = gameObject.getSpeed()
+					
+					const diffX = otherPosition.x - this._position.x
+					const diffY = otherPosition.y - this._position.y
+
+					const absSpeed = Math.sqrt(Math.pow(this._speed.x, 2) + Math.pow(this._speed.y, 2));
+					const otherAbsSpeed = Math.sqrt(Math.pow(otherSpeed.x, 2) + Math.pow(otherSpeed.y, 2));
+
+					const avgAbsSpeed = (absSpeed + otherAbsSpeed) / 2
+
+					this._speed.x = -diffX
+					this._speed.y =- diffY
+
+					return 
+				}
+			}
+		});
+	}
+
+	processBorderCollision(){
+
 		const diffX = Math.cos(this._angle) * this._size.width
 		const diffY = Math.sin(this._angle) * this._size.height
 
