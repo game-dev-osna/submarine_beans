@@ -40,7 +40,9 @@ socket.onopen =  () => {
 }
 
 const setText = (content) => {
-	document.querySelector('body > div > pre').innerHTML = JSON.stringify(content, null, 2)
+	if(false) {
+		document.querySelector('body > div > pre').innerHTML = JSON.stringify(content, null, 2)
+	}
 }
 
 socket.onmessage = (event) => {
@@ -204,6 +206,15 @@ const sharedSubmarineConfig = {
 }
 
 let assets = {
+	shark_torpedo: {
+		url: 'assets/shark_torpedo.png',
+		nativeSize: {
+			x: 100,
+			y: 35
+		},
+		scale: 0.4,
+		image: null
+	},
 	submarine_green: {
 		url: 'assets/submarine_green.png',
 		...sharedSubmarineConfig
@@ -290,6 +301,6 @@ const drawPlayers = () => {
 
 const drawMissiles = () => {
 	state.missiles.forEach(missile => {
-		drawAsset(assets['submarine_green'], missile)
+		drawAsset(assets.shark_torpedo, missile)
 	})
 }
