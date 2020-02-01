@@ -52,17 +52,17 @@ class GameState {
 			const { up, down, left, right } = player.getInputs()
 			
 			if(up) {
-				player.translate({ translateY: -GAME_SETTINGS.PLAYER_SPEED })
+				player.move(GAME_SETTINGS.PLAYER_SPEED)
 			}
 			else if(down) {
-				player.translate({ translateY: GAME_SETTINGS.PLAYER_SPEED })
+				player.move(-GAME_SETTINGS.PLAYER_SPEED)
 			}	
 			
 			if(left) {
-				player.translate({ translateX: -GAME_SETTINGS.PLAYER_SPEED })
+				player.rotate(-GAME_SETTINGS.PLAYER_ROTATION_SPEED)
 			}
 			else if(right) {
-				player.translate({ translateX: GAME_SETTINGS.PLAYER_SPEED })
+				player.rotate(GAME_SETTINGS.PLAYER_ROTATION_SPEED)
 			}	
 		})
 	}

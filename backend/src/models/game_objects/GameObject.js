@@ -3,7 +3,7 @@ const GAME_SETTINGS = require('../../settings')
 class GameObject {
 	constructor(name) {
 		this._name = name || 'DEFAULT'
-		this._position = { x: 0, y: 0 }
+		this._position = { x: 50, y: 50 }
 		this._size = { width: 0, height: 0 }
 		this._angle = 0 // 0π to 2π
 	}
@@ -53,6 +53,23 @@ class GameObject {
 	translate({ translateX, translateY }) {
 		this._position.y += translateY || 0
 		this._position.x += (translateX / GAME_SETTINGS.SCREEN_RATIO) || 0
+	}
+
+	rotate( radians ) {
+		this._angle += (radians || 0)
+		this._angle = this._angle % (Math.PI * 2)
+
+		while(this._angle < 0.0)
+		{
+			this._angle += Math.PI * 2;
+		}
+	}
+
+	move( distance ) {
+		this.translate({
+			translateX: distance * Math.cos(this._angle),
+			translateY: distance * Math.sin(this._angle)
+		})
 	}
 }
 

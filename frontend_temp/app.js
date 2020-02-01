@@ -218,7 +218,7 @@ const drawPlayers = () => {
 	state.players.forEach(player => {
 		const playerPixelPosition = calculatePercentToPixel(player.position)
 		context.beginPath()
-		context.arc(playerPixelPosition.x, playerPixelPosition.y, 20, 0.2, 2 * Math.PI)
+		context.arc(playerPixelPosition.x, playerPixelPosition.y, 20, player.angle + 0.1, player.angle - 0.1)
 		context.stroke()
 	})
 }
