@@ -37,7 +37,7 @@ class DynamicObject extends GameObject{
 	}
 
 	accelerate(factor) {
-		this._acceleration.x = Math.cos(this._angle) * factor 
+		this._acceleration.x = Math.cos(this._angle) * factor / GAME_SETTINGS.SCREEN_RATIO
 		this._acceleration.y = Math.sin(this._angle) * factor
 	}
 
