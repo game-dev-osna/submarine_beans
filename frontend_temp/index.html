@@ -27,9 +27,28 @@
 
 			.art {
 				border: 1px solid black;
-				/* background-color: white;*/
-				background-image: url(https://www.anthropocenemagazine.org/wp-content/uploads/2019/03/bubbles2-compressor.gif);
-				background-size: cover;
+				background: linear-gradient(183deg, #02d9a2, #1002d9);
+				background-size: 400% 400%;
+
+				-webkit-animation: AnimationName 10s ease infinite;
+				-moz-animation: AnimationName 10s ease infinite;
+				animation: AnimationName 10s ease infinite;
+			}
+
+			@-webkit-keyframes AnimationName {
+				0%{background-position:57% 0%}
+				50%{background-position:44% 100%}
+				100%{background-position:57% 0%}
+			}
+			@-moz-keyframes AnimationName {
+				0%{background-position:57% 0%}
+				50%{background-position:44% 100%}
+				100%{background-position:57% 0%}
+			}
+			@keyframes AnimationName {
+				0%{background-position:57% 0%}
+				50%{background-position:44% 100%}
+				100%{background-position:57% 0%}
 			}
 
 		</style>
