@@ -4,13 +4,17 @@ class Player extends DynamicObject {
 
 	constructor(name) {
 		super(name)
-
+		this._color = ''
 		this._inputs = {
 			up: false,
 			down: false,
 			left: false,
 			right: false
 		}
+	}
+
+	getColor() {
+		return this._color
 	}
 
 	getInputs() {
@@ -21,6 +25,17 @@ class Player extends DynamicObject {
 		this._inputs = {
 			...this._inputs, 
 			...inputs
+		}
+	}
+
+	setColor(color) {
+		this._color = color
+	}
+
+	getState() {
+		return {
+			...super.getState(),
+			color: this._color
 		}
 	}
 }	

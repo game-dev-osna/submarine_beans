@@ -5,7 +5,8 @@
   "author": "Alexander Riss, Benjamin Brachmann, Tobias Oberbeck",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "nodemon": "nodemon server.js"
   },
   "dependencies": {
     "express": "^4.17.1",

@@ -179,10 +179,10 @@ const calculatePercentToPixel = ({ x: xPercent , y: yPercent }) => {
 //#############################
 
 const submarineMapping = {
-	0: 'submarine_green',
-	1: 'submarine_pink',
-	2: 'submarine_yellow',
-	3: 'submarine_red'
+	'green': 'submarine_green',
+	'pink': 'submarine_pink',
+	'yellow': 'submarine_yellow',
+	'red': 'submarine_red'
 }
 
 const sharedSubmarineConfig = {
@@ -272,7 +272,8 @@ const drawAsset = (asset, gameObject) => {
 
 const drawPlayers = () => {
 	state.players.forEach((player, index) => {
-		const submarineName = submarineMapping[index]
+		console.log(player)
+		const submarineName = submarineMapping[player.color]
 		drawAsset(assets[submarineName], player)
 	})
 }
