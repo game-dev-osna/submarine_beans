@@ -17,6 +17,17 @@ class Game {
 		if(this._clients.includes(client))
 			return
 
+		const usedColors = this._clients.map((client)=>{
+			return client.getPlayer().getColor()
+		})
+		
+		for(let color of GAME_SETTINGS.PLAYER_COLORS) {
+			if(!usedColors.includes(color)) {
+				client.getPlayer().setColor(color)
+				break
+			} 	
+		}
+		
 		console.log(`Client ${ chalk.blue(client.getUID()) } joined game`)
 		this._clients.push(client)
 	}

@@ -6,6 +6,7 @@ class Player extends DynamicObject {
 		super(name)
 
 		this._lastInteractionDate = new Date()
+		this._color = ''
 		this._inputs = {
 			up: false,
 			down: false,
@@ -22,6 +23,10 @@ class Player extends DynamicObject {
 	setLastInteractionDate(lastInteractionDate) {
 		this._lastInteractionDate = lastInteractionDate
 	}
+	
+	getColor() {
+		return this._color
+	}
 
 	getInputs() {
 		return this._inputs
@@ -31,6 +36,17 @@ class Player extends DynamicObject {
 		this._inputs = {
 			...this._inputs, 
 			...inputs
+		}
+	}
+
+	setColor(color) {
+		this._color = color
+	}
+
+	getState() {
+		return {
+			...super.getState(),
+			color: this._color
 		}
 	}
 }	

@@ -7,5 +7,6 @@ module.exports = {
 	LOOP_INTERVAL_TIME: 1000 / 120,
 	ACCELARATION_FACTOR: 0.001,
 	MISSILE_SPEED: 0.153,
-	INTERACTION_PAUSE: 50 //ms
+	INTERACTION_PAUSE: 50, //ms
+	PLAYER_COLORS: ['green', 'red', 'yellow', 'pink']
 }
