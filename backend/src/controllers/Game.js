@@ -19,6 +19,9 @@ class Game {
 		if(this._clients.length > SETTINGS.MAX_AMOUNT_OF_CLIENTS)
 			return
 
+		if(this._clients.includes(client))
+			return
+			
 		console.log(`Client ${ chalk.blue(client.getUID()) } joined game`)
 		this._clients.push(client)
 	}

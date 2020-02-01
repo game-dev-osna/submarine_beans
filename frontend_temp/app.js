@@ -178,6 +178,22 @@ const calculatePercentToPixel = ({ x: xPercent , y: yPercent }) => {
 // 			 LOOP
 //#############################
 
+let assets = {
+	submarine: {
+		url: 'assets/submarine.png',
+		size: {
+			x: 128,
+			y: 128
+		},
+		image: null
+	}
+}
+
+for(let key in assets) {
+	assets[key].image = new Image()
+	assets[key].image.src = assets[key].url
+}
+
 let lastState = null
 let state = null
 let lastFrameDate = new Date()
@@ -214,11 +230,22 @@ const loop = () => {
 
 loop()
 
+const drawAsset = (asset, gameObject) => {
+
+	const gameObjectPixelPosition = calculatePercentToPixel(gameObject.position)
+
+	let x = gameObjectPixelPosition.x
+	let y = gameObjectPixelPosition.y
+
+	context.translate(x, y)
+	context.rotate(gameObject.angle)
+	context.drawImage(asset.image, -asset.size.x/2, -asset.size.y/2)
+	context.rotate(-gameObject.angle)
+	context.translate(-x, -y)
+}
+
 const drawPlayers = () => {
 	state.players.forEach(player => {
-		const playerPixelPosition = calculatePercentToPixel(player.position)
-		context.beginPath()
-		context.arc(playerPixelPosition.x, playerPixelPosition.y, 20, player.angle + 0.1, player.angle - 0.1)
-		context.stroke()
+		drawAsset(assets.submarine, player)
 	})
 }
