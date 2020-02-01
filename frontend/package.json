@@ -8,7 +8,10 @@
     "start": "parcel index.html assets/**/*"
   },
   "dependencies": {
-    "@develephant/types-phaser": "^1.0.1"
+    "@develephant/types-phaser": "^1.0.1",
+    "phaser": "^3.22.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  }
 }
