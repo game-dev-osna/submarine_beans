@@ -31,7 +31,7 @@ class Client {
 	}
 
 	_processInput(payload) {
-		this.player.setInputs(payload)
+		this._player.setInputs(payload)
 	}
 
 	_processGeneral(payload) {

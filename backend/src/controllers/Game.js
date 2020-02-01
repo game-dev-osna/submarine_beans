@@ -11,7 +11,7 @@ class Game {
 	constructor() {
 		this._clients = []
 		this._isCalculatingState = false
-		this._loopIntervalId = ''	
+		this._loopIntervalId = undefined	
 		this._gameState = null
 	}
 
