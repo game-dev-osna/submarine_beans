@@ -71,14 +71,7 @@ class DynamicObject extends GameObject {
 		if(hasCollisionTop && this._speed.y < 0.0) this._speed.y *= -1;
 		if(hasCollisionBottom && this._speed.y > 0.0) this._speed.y *= -1;
 
-		if(any((b) => b)([hasCollisionLeft, hasCollisionRight, hasCollisionTop, hasCollisionBottom]))
-		{
-			this._colliding = true;
-		}
-		else
-		{
-			this._colliding = false;
-		}
+		this._colliding = any((b) => b)([hasCollisionLeft, hasCollisionRight, hasCollisionTop, hasCollisionBottom]);
 	}
 
 
