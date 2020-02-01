@@ -35,10 +35,7 @@ class GameObject {
 	}
 
 	setAngle(angle) {
-		this._angle = {
-			...this._angle,
-			...angle
-		}
+		this._angle = angle
 	}
 
 	getState() {
