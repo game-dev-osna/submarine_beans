@@ -14,14 +14,16 @@ let lastInputs = {
 	up: false,
 	down: false,
 	left: false,
-	right: false
+	right: false,
+	space: false
 }
 
 let inputs = {
 	up: false,
 	down: false,
 	left: false,
-	right: false
+	right: false,
+	space: false
 }
 
 canvasElement.style.width = `${ dimensions.width }px`
@@ -101,7 +103,9 @@ const isSameInput = (lastInput, newInput) => {
 	if(	lastInput.up === newInput.up &&
 		lastInput.down === newInput.down &&
 		lastInput.right === newInput.right &&
-		lastInput.left === newInput.left) {
+		lastInput.right === newInput.right &&
+		lastInput.left === newInput.left && 
+		lastInput.s_key === newInput.s_key) {
 			return true
 		}
 	return false
@@ -139,6 +143,9 @@ const setInputOnKeyDown = (event) => {
 		case 37:
 			inputs.left = true
 			break
+		case 83:
+			inputs.s_key = true
+			break
 		default:
 			return
 	}
@@ -159,6 +166,9 @@ const setInputOnKeyUp = (event) => {
 		case 37:
 			inputs.left = false
 			break
+		case 83:
+			inputs.s_key = false
+			break
 		default:
 			return
 	}
@@ -167,7 +177,6 @@ const setInputOnKeyUp = (event) => {
 
 const calculatePercentToPixel = ({ x: xPercent , y: yPercent }) => {
 	return {
-		// 1200*(50/100)
 		x: (dimensions.width * (xPercent / 100.0)) || 0,
 		y: (dimensions.height * (yPercent / 100.0)) || 0
 	}
@@ -195,6 +204,15 @@ const sharedSubmarineConfig = {
 }
 
 let assets = {
+	shark_torpedo: {
+		url: 'assets/shark_torpedo.png',
+		nativeSize: {
+			x: 100,
+			y: 35
+		},
+		scale: 0.4,
+		image: null
+	},
 	submarine_green: {
 		url: 'assets/submarine_green.png',
 		...sharedSubmarineConfig
@@ -249,6 +267,8 @@ const loop = () => {
 		context.fillText(`Players: ${ state.meta.amountOfPlayers } C-FPS: ${ clientFps } S-FPS: ${ serverFps }`, canvasElement.width - 350, 50)
 
 		drawPlayers()
+
+		drawMissiles()
 	}
 }
 
@@ -271,9 +291,14 @@ const drawAsset = (asset, gameObject) => {
 }
 
 const drawPlayers = () => {
-	state.players.forEach((player, index) => {
-		console.log(player)
+	state.players.forEach((player) => {
 		const submarineName = submarineMapping[player.color]
 		drawAsset(assets[submarineName], player)
+	})
+}
+
+const drawMissiles = () => {
+	state.missiles.forEach(missile => {
+		drawAsset(assets.shark_torpedo, missile)
 	})
 }

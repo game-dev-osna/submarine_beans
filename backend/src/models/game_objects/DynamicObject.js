@@ -40,10 +40,6 @@ class DynamicObject extends GameObject {
 			this._speed.y = 0.0
 		}
 
-
-		// this._acceleration.x *= (1.0 - FORCE_FALL_PER_SECOND) * (deltaTime / MILLISECONDS_PER_SECOND)
-		// this._acceleration.y *= (1.0 - FORCE_FALL_PER_SECOND) * (deltaTime / MILLISECONDS_PER_SECOND)
-
 		this._acceleration = { x: 0, y: 0 }
 
 		this.processBorderCollision();
