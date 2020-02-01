@@ -4,15 +4,26 @@ class Player extends DynamicObject {
 
 	constructor(name) {
 		super(name)
+
+		this._lastInteractionDate = new Date()
 		this._color = ''
 		this._inputs = {
 			up: false,
 			down: false,
 			left: false,
-			right: false
+			right: false,
+			s_key: false
 		}
 	}
 
+	getLastInteractionDate() {
+		return this._lastInteractionDate
+	}
+
+	setLastInteractionDate(lastInteractionDate) {
+		this._lastInteractionDate = lastInteractionDate
+	}
+	
 	getColor() {
 		return this._color
 	}
