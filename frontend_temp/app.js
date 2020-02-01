@@ -181,10 +181,11 @@ const calculatePercentToPixel = ({ x: xPercent , y: yPercent }) => {
 let assets = {
 	submarine: {
 		url: 'assets/submarine.png',
-		size: {
+		nativeSize: {
 			x: 128,
 			y: 128
 		},
+		scale: 0.5,
 		image: null
 	}
 }
@@ -239,7 +240,9 @@ const drawAsset = (asset, gameObject) => {
 
 	context.translate(x, y)
 	context.rotate(gameObject.angle)
-	context.drawImage(asset.image, -asset.size.x/2, -asset.size.y/2)
+	context.scale(asset.scale, asset.scale)
+	context.drawImage(asset.image, -asset.nativeSize.x/2, -asset.nativeSize.y/2)
+	context.scale(1 / asset.scale, 1 / asset.scale)
 	context.rotate(-gameObject.angle)
 	context.translate(-x, -y)
 }
