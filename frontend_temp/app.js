@@ -282,8 +282,7 @@ const drawAsset = (asset, gameObject) => {
 }
 
 const drawPlayers = () => {
-	state.players.forEach((player, index) => {
-		console.log(player)
+	state.players.forEach((player) => {
 		const submarineName = submarineMapping[player.color]
 		drawAsset(assets[submarineName], player)
 	})
@@ -291,6 +290,6 @@ const drawPlayers = () => {
 
 const drawMissiles = () => {
 	state.missiles.forEach(missile => {
-		drawAsset(assets.submarine, missile)
+		drawAsset(assets['submarine_green'], missile)
 	})
 }
