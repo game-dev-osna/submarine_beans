@@ -40,7 +40,9 @@ socket.onopen =  () => {
 }
 
 const setText = (content) => {
-	document.querySelector('body > div > pre').innerHTML = JSON.stringify(content, null, 2)
+	if(false) {
+		document.querySelector('body > div > pre').innerHTML = JSON.stringify(content, null, 2)
+	}
 }
 
 socket.onmessage = (event) => {
